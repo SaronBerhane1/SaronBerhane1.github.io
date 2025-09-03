@@ -1,1 +1,243 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Growth-verktyg — Professionell samling</title>
+  <meta name="description" content="Samling av growth-verktyg för tillväxt: acquisition, retention, produktanalys, CRO och automation." />
+  <style>
+    :root{
+      --bg:#ffffff; --text:#0b0b0b; --muted:#4b5563; --accent:#0b74ff; --card:#f8fafc;
+      --radius:12px; --glass: rgba(11,11,11,0.04);
+      --shadow: 0 8px 30px rgba(11,11,11,0.06);
+      font-synthesis: none;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
 
+    /* Layout */
+    .container{max-width:1150px;margin:40px auto;padding:28px}
+    header{display:flex;gap:20px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#0b62d6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;box-shadow:var(--shadow)}
+    .title-wrap h1{margin:0;font-size:22px;font-weight:700}
+    .title-wrap p{margin:4px 0 0;color:var(--muted);font-size:14px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;margin-top:26px;align-items:center}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr;}} 
+
+    .hero-card{background:var(--card);border-radius:16px;padding:22px;box-shadow:var(--shadow);}
+    .hero h2{margin:0 0 8px 0;font-size:20px}
+    .hero p{margin:0;color:var(--muted)}
+    .cta-row{display:flex;gap:12px;margin-top:16px}
+    .btn{background:var(--accent);color:#fff;border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(11,11,11,0.06);color:var(--text)}
+
+    /* Images grid */
+    .image-collage{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;border-radius:12px;overflow:hidden}
+    .image-collage img{width:100%;height:100%;object-fit:cover;display:block}
+    .img-1{height:230px}
+    .img-2{height:110px}
+    .img-3{height:110px}
+    .img-4{height:230px}
+    @media (max-width:980px){.img-1,.img-4{height:160px}}
+
+    /* Services list */
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0}
+    .chip{padding:8px 12px;border-radius:999px;background:var(--glass);border:1px solid rgba(11,11,11,0.03);cursor:pointer;font-size:14px}
+    .chip[data-active="true"]{background:linear-gradient(90deg,var(--accent),#0b62d6);color:#fff;border-color:transparent}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:700px){.grid{grid-template-columns:1fr}}
+
+    .card{background:#fff;border-radius:12px;padding:18px;border:1px solid rgba(11,11,11,0.04);box-shadow:0 6px 20px rgba(11,11,11,0.04);display:flex;flex-direction:column;gap:12px}
+    .card h3{margin:0;font-size:16px}
+    .meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+    .desc{color:var(--muted);font-size:14px}
+    .card .actions{display:flex;gap:8px;margin-top:auto}
+    .link{background:transparent;border:1px solid rgba(11,11,11,0.06);padding:8px 10px;border-radius:8px;cursor:pointer}
+
+    /* Footer */
+    footer{margin-top:36px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* small utils */
+    .kpi{display:flex;gap:10px;align-items:center}
+    .kpi strong{font-size:20px}
+
+    /* copy toast */
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#111;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.25);opacity:0;pointer-events:none;transition:all .28s}
+    .toast.show{opacity:1;pointer-events:auto}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">G</div>
+        <div class="title-wrap">
+          <h1>Growth-verktyg</h1>
+          <p>Handplockade verktyg för företags tillväxt — tydligt, professionellt och enkelt att dela.</p>
+        </div>
+      </div>
+      <nav aria-label="Huvudnavigering">
+        <button class="btn" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">Utforska verktyg</button>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-card">
+        <h2 id="hero-heading">Verktyg för varje steg i tillväxtresan</h2>
+        <p>Acquisition, konvertering, retention, produktanalys och automation — allt samlat i en överskådlig lista. Klicka för att öppna eller kopiera länkar snabbt.</p>
+
+        <div class="filters" role="tablist" aria-label="Filter för kategori">
+          <button class="chip" data-filter="all" data-active="true">Alla</button>
+          <button class="chip" data-filter="analytics">Analytics</button>
+          <button class="chip" data-filter="seo">SEO</button>
+          <button class="chip" data-filter="ads">Ads</button>
+          <button class="chip" data-filter="crm">CRM</button>
+          <button class="chip" data-filter="email">E-post</button>
+          <button class="chip" data-filter="automation">Automation</button>
+          <button class="chip" data-filter="cro">CRO</button>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn" onclick="resetFilters()">Visa allt</button>
+          <button class="btn ghost" onclick="shareList()">Dela listan</button>
+        </div>
+      </div>
+
+      <aside>
+        <div class="image-collage" aria-hidden="false">
+          <img class="img-1" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1400&auto=format&fit=crop" alt="Analytics dashboard med grafer">
+          <img class="img-2" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop" alt="Team i möte planerar marknadsföring">
+          <img class="img-3" src="https://images.unsplash.com/photo-1519241047957-be31d7379a5d?q=80&w=1200&auto=format&fit=crop" alt="Graf som visar tillväxtkurva och uppåtgående pil">
+          <img class="img-4" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1400&auto=format&fit=crop" alt="Person som arbetar kreativt med design och kampanjer">
+        </div>
+      </aside>
+    </section>
+
+    <main id="tools">
+      <h2 style="margin-top:28px">Verktyg (exempel)</h2>
+      <p class="desc">Klicka för att öppna i ny flik eller använd kopiera-knappen för att dela länken snabbt.</p>
+
+      <div class="grid" id="grid">
+        <!-- Cards genereras av JavaScript -->
+      </div>
+
+      <footer>
+        <p>Byt enkelt bilder och lägg till egna verktyg i JavaScript-sektionen. Designen är tänkt att vara ren och professionell.</p>
+      </footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Kopierat</div>
+
+  <script>
+    const DATA = [
+      {name: 'Google Analytics', cat:'analytics', url:'https://analytics.google.com', desc:'Webbanalys för trafik, mål & funnels.'},
+      {name: 'Hotjar', cat:'analytics', url:'https://www.hotjar.com', desc:'Heatmaps, session recordings och feedback.'},
+      {name: 'Ahrefs', cat:'seo', url:'https://ahrefs.com', desc:'Keyword research, backlinks och site audits.'},
+      {name: 'SEMrush', cat:'seo', url:'https://semrush.com', desc:'Sökordsforskning, konkurrensanalys och rank tracking.'},
+      {name: 'Google Ads', cat:'ads', url:'https://ads.google.com', desc:'Sök- och displayannonser, YouTube.'},
+      {name: 'Meta Ads', cat:'ads', url:'https://www.facebook.com/business/ads', desc:'Facebook & Instagram-annonsering.'},
+      {name: 'HubSpot', cat:'crm', url:'https://hubspot.com', desc:'CRM, marketing automation och lead management.'},
+      {name: 'Pipedrive', cat:'crm', url:'https://pipedrive.com', desc:'Sälj-CRM med pipeline fokus.'},
+      {name: 'Mailchimp', cat:'email', url:'https://mailchimp.com', desc:'Nyhetsbrev, automation och segmentering.'},
+      {name: 'Brevo (Sendinblue)', cat:'email', url:'https://www.brevo.com', desc:'E-post, SMS och transaktionell e-post.'},
+      {name: 'Zapier', cat:'automation', url:'https://zapier.com', desc:'Koppla appar och bygg automatiska flöden.'},
+      {name: 'Make', cat:'automation', url:'https://www.make.com', desc:'Visuell automation för komplexa processer.'},
+      {name: 'Optimizely', cat:'cro', url:'https://www.optimizely.com', desc:'A/B-testning och personalisering.'},
+      {name: 'VWO', cat:'cro', url:'https://vwo.com', desc:'Testning, anpassning och heatmaps.'},
+    ];
+
+    const grid = document.getElementById('grid');
+    const toast = document.getElementById('toast');
+
+    function createCard(item){
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.innerHTML = `
+        <h3>${escapeHtml(item.name)}</h3>
+        <div class="meta"><span>${capitalize(item.cat)}</span> · <span class="muted">${escapeHtml(item.desc)}</span></div>
+        <div class="actions">
+          <a class="link" href="${item.url}" target="_blank" rel="noopener">Öppna</a>
+          <button class="link" data-copy="${item.url}">Kopiera länk</button>
+        </div>
+      `;
+      return el;
+    }
+
+    function render(list = DATA){
+      grid.innerHTML = '';
+      list.forEach(i=> grid.appendChild(createCard(i)));
+    }
+
+    function filterBy(cat){
+      if(cat === 'all') return render(DATA);
+      render(DATA.filter(d=> d.cat === cat));
+    }
+
+    function resetFilters(){
+      document.querySelectorAll('.chip').forEach(c=> c.setAttribute('data-active','false'));
+      document.querySelector('.chip[data-filter="all"]').setAttribute('data-active','true');
+      render(DATA);
+    }
+
+    function shareList(){
+      const urls = DATA.map(d=>d.url).join('\n');
+      if(navigator.share){
+        navigator.share({title:'Growth-verktyg', text: 'Handplockade growth-verktyg', url: location.href}).catch(()=>{});
+      } else {
+        copyToClipboard(urls);
+      }
+    }
+
+    // Helpers
+    function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])); }
+    function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    document.addEventListener('click', e=>{
+      const btn = e.target.closest('[data-copy]');
+      if(!btn) return;
+      copyToClipboard(btn.getAttribute('data-copy'));
+    });
+
+    function copyToClipboard(text){
+      navigator.clipboard && navigator.clipboard.writeText(text).then(()=>{
+        showToast('Länk kopierad');
+      }).catch(()=>{
+        // Fallback
+        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); showToast('Länk kopierad'); }catch{ showToast('Kunde inte kopiera'); }
+        ta.remove();
+      });
+    }
+
+    function showToast(msg){
+      toast.textContent = msg; toast.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=> toast.classList.remove('show'), 1800);
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.chip').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.chip').forEach(b=>b.setAttribute('data-active','false'));
+        btn.setAttribute('data-active','true');
+        const f = btn.getAttribute('data-filter');
+        filterBy(f);
+      });
+    });
+
+    // Init
+    render();
+  </script>
+</body>
+</html>
