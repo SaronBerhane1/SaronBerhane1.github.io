@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- DataLayer init BEFORE GTM -->
@@ -6,21 +6,18 @@
     window.dataLayer = window.dataLayer || [];
   </script>
 
- 
- <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KP36HMH5');</script>
-<!-- End Google Tag Manager -->
-
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KP36HMH5');</script>
+  <!-- End Google Tag Manager -->
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SARON BERHANE – Portfolio</title>
   <meta name="description" content="Portfölj för Saron Berhane" />
-  <!-- Google Fonts Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -76,12 +73,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
   
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP36HMH5"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP36HMH5"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) --> 
 
-  <!-- Header -->
   <header>
     <h1>SARON BERHANE</h1>
     <p class="subtitle">Portfolio</p>
@@ -112,7 +107,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </main>
 
-  <!-- Modal för Command-line -->
+  <!-- Modal -->
   <div id="commandModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" id="close-command">&times;</span>
@@ -129,70 +124,70 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>© <span id="year"></span> Saron Berhane — Alla rättigheter förbehållna.</footer>
 
   <script>
-    
-document.addEventListener("DOMContentLoaded", function() {
-      // Footer year
-      document.getElementById("year").textContent = new Date().getFullYear();
+  // Debug wrapper: log every dataLayer push
+  (function() {
+    const originalPush = window.dataLayer.push;
+    window.dataLayer.push = function() {
+      console.log("%cDataLayer PUSH:", "color: orange; font-weight: bold;", JSON.stringify(arguments[0], null, 2));
+      return originalPush.apply(window.dataLayer, arguments);
+    };
+  })();
 
-      // Modal functions
-      const commandModal = document.getElementById("commandModal");
-      const closeBtn = document.getElementById("close-command");
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-      function openCommandLine(){
-        commandModal.style.display = "flex";
-        dataLayer.push({
-          event: "cta_click",
-          button_id: "cta-button",
-          button_text: "Command-line",
-          action: "open_modal",
-          section: "Mappar",
-          timestamp: new Date().toISOString()
-        });
+    const commandModal = document.getElementById("commandModal");
+    const closeBtn = document.getElementById("close-command");
+
+    function openCommandLine(){
+      commandModal.style.display = "flex";
+      dataLayer.push({
+        event: "cta_click",
+        button_id: "cta-button",
+        button_text: "Command-line",
+        action: "open_modal",
+        section: "Mappar",
+        timestamp: new Date().toISOString()
+      });
+    }
+    function closeCommandLine(){
+      commandModal.style.display = "none";
+    }
+    closeBtn.addEventListener("click", closeCommandLine);
+    window.addEventListener("click", function(event) {
+      if (event.target === commandModal) {
+        closeCommandLine();
       }
-      function closeCommandLine(){
-        commandModal.style.display = "none";
-      }
-      closeBtn.addEventListener("click", closeCommandLine);
-      window.addEventListener("click", function(event) {
-        if (event.target === commandModal) {
-          closeCommandLine();
-        }
-      });
-
-      // Folder handler
-      function openFolder(name, id, text){
-        dataLayer.push({
-          event: "folder_open",
-          folder: name,
-          button_id: id,
-          button_text: text,
-          section: "Mappar",
-          timestamp: new Date().toISOString()
-        });
-        alert("Öppnar " + name);
-      }
-
-      // Button event listeners
-      document.getElementById("scraping-button").addEventListener("click", function(){
-        openFolder("scraping", "scraping-button", "Scraping");
-      });
-
-      document.getElementById("cta-button").addEventListener("click", function(){
-        openCommandLine();
-      });
-
-      document.getElementById("mapp3-button").addEventListener("click", function(){
-        openFolder("mapp3", "mapp3-button", "Mapp 3");
-      });
-
-      document.getElementById("mapp4-button").addEventListener("click", function(){
-        openFolder("mapp4", "mapp4-button", "Mapp 4");
-      });
     });
+
+    function openFolder(name, id, text){
+      dataLayer.push({
+        event: "folder_open",
+        folder: name,
+        button_id: id,
+        button_text: text,
+        section: "Mappar",
+        timestamp: new Date().toISOString()
+      });
+      alert("Öppnar " + name);
+    }
+
+    document.getElementById("scraping-button").addEventListener("click", function(){
+      openFolder("scraping", "scraping-button", "Scraping");
+    });
+    document.getElementById("cta-button").addEventListener("click", function(){
+      openCommandLine();
+    });
+    document.getElementById("mapp3-button").addEventListener("click", function(){
+      openFolder("mapp3", "mapp3-button", "Mapp 3");
+    });
+    document.getElementById("mapp4-button").addEventListener("click", function(){
+      openFolder("mapp4", "mapp4-button", "Mapp 4");
+    });
+  });
   </script>
 </body>
 </html>
