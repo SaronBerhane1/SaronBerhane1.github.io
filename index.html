@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="sv">
+<<!DOCTYPE html>
+<html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+  <!-- DataLayer init BEFORE GTM -->
   <script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-  var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
-  j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-  f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    window.dataLayer = window.dataLayer || [];
   </script>
-  <!-- End Google Tag Manager -->
+
+ 
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KP36HMH5');</script>
+<!-- End Google Tag Manager -->
+
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SARON BERHANE – Portfolio</title>
@@ -17,9 +23,7 @@
   <!-- Google Fonts Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
-  
-
-    <style>
+  <style>
     :root{
       --bg:#ffffff; --text:#0a0a0a; --muted:#6b7280;
       --black:#000000;
@@ -68,15 +72,14 @@
 
     footer{background:var(--black); color:#fff; padding:20px; text-align:center}
   </style>
-
 </head>
 <body>
+  
   <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP36HMH5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  
 
   <!-- Header -->
   <header>
@@ -87,29 +90,32 @@
   <main>
     <h2 class="section-title">Mappar</h2>
     <div class="grid">
-      <article class="card" onclick="openFolder('scraping')">
+      <button id="scraping-button" class="card">
         <h3>Scraping</h3>
         <p class="muted">Lägg in dokument och filer</p>
-      </article>
-      <article class="card" onclick="openCommandLine()">
+      </button>
+
+      <button id="cta-button" class="card">
         <h3>Command-line</h3>
         <p class="muted">Grundläggande terminalkommandon</p>
-      </article>
-      <article class="card" onclick="openFolder('mapp3')">
+      </button>
+
+      <button id="mapp3-button" class="card">
         <h3>Mapp 3</h3>
         <p class="muted">Tom – lägg till filer</p>
-      </article>
-      <article class="card" onclick="openFolder('mapp4')">
+      </button>
+
+      <button id="mapp4-button" class="card">
         <h3>Mapp 4</h3>
         <p class="muted">Tom – lägg till filer</p>
-      </article>
+      </button>
     </div>
   </main>
 
   <!-- Modal för Command-line -->
   <div id="commandModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeCommandLine()">&times;</span>
+      <span class="close-btn" id="close-command">&times;</span>
       <h2>Command-line – Grundläggande kommandon</h2>
       <ul>
         <li><code>pwd</code> → visar var du är (hela sökvägen).</li>
@@ -127,35 +133,66 @@
   <footer>© <span id="year"></span> Saron Berhane — Alla rättigheter förbehållna.</footer>
 
   <script>
-    // år i footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+    
+document.addEventListener("DOMContentLoaded", function() {
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Modal-funktioner för endast Command-line
-    function openCommandLine(){
-      document.getElementById("commandModal").style.display = "flex";
-    }
-    function closeCommandLine(){
-      document.getElementById("commandModal").style.display = "none";
-    }
-    window.onclick = function(event) {
-      let modal = document.getElementById("commandModal");
-      if (event.target === modal) {
-        closeCommandLine();
+      // Modal functions
+      const commandModal = document.getElementById("commandModal");
+      const closeBtn = document.getElementById("close-command");
+
+      function openCommandLine(){
+        commandModal.style.display = "flex";
+        dataLayer.push({
+          event: "cta_click",
+          button_id: "cta-button",
+          button_text: "Command-line",
+          action: "open_modal",
+          section: "Mappar",
+          timestamp: new Date().toISOString()
+        });
       }
-    }
-
-    // DataLayer-init
-    window.dataLayer = window.dataLayer || [];
-
-    // Placeholder för andra mappar
-    function openFolder(name){
-      // Skicka event till GTM
-      dataLayer.push({
-        event: 'folder_click',
-        folder: name
+      function closeCommandLine(){
+        commandModal.style.display = "none";
+      }
+      closeBtn.addEventListener("click", closeCommandLine);
+      window.addEventListener("click", function(event) {
+        if (event.target === commandModal) {
+          closeCommandLine();
+        }
       });
-      alert("Öppnar " + name);
-    }
+
+      // Folder handler
+      function openFolder(name, id, text){
+        dataLayer.push({
+          event: "folder_open",
+          folder: name,
+          button_id: id,
+          button_text: text,
+          section: "Mappar",
+          timestamp: new Date().toISOString()
+        });
+        alert("Öppnar " + name);
+      }
+
+      // Button event listeners
+      document.getElementById("scraping-button").addEventListener("click", function(){
+        openFolder("scraping", "scraping-button", "Scraping");
+      });
+
+      document.getElementById("cta-button").addEventListener("click", function(){
+        openCommandLine();
+      });
+
+      document.getElementById("mapp3-button").addEventListener("click", function(){
+        openFolder("mapp3", "mapp3-button", "Mapp 3");
+      });
+
+      document.getElementById("mapp4-button").addEventListener("click", function(){
+        openFolder("mapp4", "mapp4-button", "Mapp 4");
+      });
+    });
   </script>
 </body>
 </html>
