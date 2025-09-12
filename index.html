@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
   <!-- DataLayer init BEFORE GTM -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-  </script>
+  <script>window.dataLayer = window.dataLayer || [];</script>
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -24,25 +22,21 @@
     :root{
       --bg:#ffffff; --text:#0a0a0a; --muted:#6b7280;
       --black:#000000;
-      --orange:#f97316; /* mappfärg */
+      --orange:#f97316;
       --shadow:0 12px 15px -5px rgba(0,0,0,.1),0 6px 6px -6px rgba(0,0,0,.1);
       --radius:14px;
     }
     *{box-sizing:border-box}
     body{margin:0; font-family:'Montserrat', sans-serif; background:var(--bg); color:var(--text);}
-
     header{background:var(--black); color:#fff; padding:48px 24px; text-align:center}
     header h1{margin:0; font-size:clamp(28px,5vw,56px); font-weight:800;}
     header .subtitle{margin-top:8px; font-size:clamp(14px,2.5vw,18px); font-weight:600;}
-
     main{max-width:1000px; margin:24px auto; padding:0 16px 48px}
     .section-title{font-size:20px; margin:8px 0 16px; font-weight:600;}
-
     .grid{display:grid; gap:14px; grid-template-columns: repeat(4,1fr);}
     @media (max-width:1024px){.grid{grid-template-columns: repeat(3,1fr);}}
     @media (max-width:768px){.grid{grid-template-columns: repeat(2,1fr);}}
     @media (max-width:520px){.grid{grid-template-columns:1fr;}}
-
     .card{
       background:#fff7f3; border:2px solid var(--orange);
       border-radius:var(--radius); padding:14px;
@@ -54,28 +48,28 @@
     .muted{color:var(--muted); font-size:13px; margin-top:4px}
 
     /* Modal */
-    .modal {
-      display:none; position:fixed; inset:0; z-index:1000;
-      background:rgba(0,0,0,.6);
-      justify-content:center; align-items:center;
-    }
-    .modal-content {
-      background:#fff; padding:24px; border-radius:var(--radius);
-      max-width:600px; width:90%; box-shadow:var(--shadow);
-    }
+    .modal { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.6); justify-content:center; align-items:center; }
+    .modal-content { background:#fff; padding:24px; border-radius:var(--radius); max-width:600px; width:90%; box-shadow:var(--shadow); }
     .modal-content h2 {margin-top:0; color:var(--orange);}
-    .modal-content code {background:#f3f3f3; padding:2px 6px; border-radius:4px;}
     .close-btn {float:right; font-size:20px; cursor:pointer; color:#666;}
-
     footer{background:var(--black); color:#fff; padding:20px; text-align:center}
+
+    /* Tabell-styles för Scraping-listan */
+    .table-wrap{max-height:70vh; overflow:auto; border:1px solid #eee; border-radius:12px;}
+    table.scrape{width:100%; border-collapse:collapse; font-size:14px;}
+    table.scrape th, table.scrape td{padding:10px 12px; border-bottom:1px solid #eee; vertical-align:top;}
+    table.scrape thead th{position:sticky; top:0; background:#fff;}
+    table.scrape tbody tr:hover{background:#fafafa;}
+    .searchbar{display:flex; gap:8px; margin:10px 0 14px}
+    .searchbar input{flex:1; padding:10px 12px; border:1px solid #ddd; border-radius:10px; font-size:14px;}
+    .pill{display:inline-block; padding:2px 8px; border-radius:999px; background:#fff7f3; border:1px solid var(--orange); color:var(--orange); font-size:12px;}
+    .link{color:var(--orange); text-decoration:none; word-break:break-all}
+    .link:hover{opacity:.85}
   </style>
 </head>
 <body>
-  
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP36HMH5"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) --> 
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KP36HMH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <header>
     <h1>SARON BERHANE</h1>
@@ -89,45 +83,59 @@
         <h3>Scraping</h3>
         <p class="muted">Lägg in dokument och filer</p>
       </button>
-
       <button id="cta-button" class="card">
         <h3>Command-line</h3>
         <p class="muted">Grundläggande terminalkommandon</p>
       </button>
-
       <button id="mapp3-button" class="card">
         <h3>Mapp 3</h3>
         <p class="muted">Tom – lägg till filer</p>
       </button>
-
       <button id="mapp4-button" class="card">
-        <h3>Mapp 4</h3>
+        <h3>Looker Studio</h3>
         <p class="muted">Tom – lägg till filer</p>
       </button>
     </div>
   </main>
 
-  <!-- Modal -->
+  <!-- Command-line modal -->
   <div id="commandModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" id="close-command">&times;</span>
       <h2>Command-line – Grundläggande kommandon</h2>
       <ul>
-        <li><code>pwd</code> → visar var du är (hela sökvägen).</li>
-        <li><code>ls</code> → listar filer och mappar i nuvarande mapp.</li>
-        <li><code>ls -l</code> → listar med mer info (rättigheter, datum, storlek).</li>
-        <li><code>cd &lt;mappnamn&gt;</code> → gå in i en undermapp.</li>
-        <li><code>cd ..</code> → gå upp en nivå (till föräldramappen).</li>
-        <li><code>cd</code> → hoppar till din hemkatalog.</li>
-        <li><code>clear</code> → rensar terminalfönstret.</li>
+        <li><code>pwd</code> → visar var du är.</li>
+        <li><code>ls</code> / <code>ls -l</code> → listar filer.</li>
+        <li><code>cd &lt;mapp&gt;</code> / <code>cd ..</code></li>
+        <li><code>cd</code> → hemmappp.</li>
+        <li><code>clear</code> → rensa.</li>
       </ul>
+    </div>
+  </div>
+
+  <!-- Scraping-lista (tabell) i egen modal -->
+  <div id="scrapingTableModal" class="modal" aria-hidden="true">
+    <div class="modal-content" style="max-width:1000px; width:95%;">
+      <span class="close-btn" id="close-scraping-table">&times;</span>
+      <h2>Scraping – Produkter <span class="pill" id="scrapingCount">0</span></h2>
+      <div class="searchbar">
+        <input id="scrapingSearch" type="search" placeholder="Sök i titlar… (t.ex. OLED, 27&quot;, 4K)">
+      </div>
+      <div class="table-wrap">
+        <table class="scrape" id="scrapingTable">
+          <thead>
+            <tr><th style="width:70%">Titel</th><th>Länk</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
   <footer>© <span id="year"></span> Saron Berhane — Alla rättigheter förbehållna.</footer>
 
   <script>
-  // Debug wrapper: log every dataLayer push
+  /* Debug wrapper för dataLayer */
   (function() {
     const originalPush = window.dataLayer.push;
     window.dataLayer.push = function() {
@@ -144,84 +152,199 @@
 
     function openCommandLine(){
       commandModal.style.display = "flex";
-      dataLayer.push({
-        event: "cta_click",
-        button_id: "cta-button",
-        button_text: "Command-line",
-        action: "open_modal",
-        section: "Mappar",
-        timestamp: new Date().toISOString()
-      });
+      dataLayer.push({event:"cta_click",button_id:"cta-button",button_text:"Command-line",action:"open_modal",section:"Mappar",timestamp:new Date().toISOString()});
     }
-    function closeCommandLine(){
-      commandModal.style.display = "none";
-    }
+    function closeCommandLine(){ commandModal.style.display = "none"; }
     closeBtn.addEventListener("click", closeCommandLine);
-    window.addEventListener("click", function(event) {
-      if (event.target === commandModal) {
-        closeCommandLine();
-      }
-    });
+    window.addEventListener("click", e => { if (e.target === commandModal) closeCommandLine(); });
 
     function openFolder(name, id, text){
-      dataLayer.push({
-        event: "folder_open",
-        folder: name,
-        button_id: id,
-        button_text: text,
-        section: "Mappar",
-        timestamp: new Date().toISOString()
-      });
+      dataLayer.push({event:"folder_open",folder:name,button_id:id,button_text:text,section:"Mappar",timestamp:new Date().toISOString()});
       alert("Öppnar " + name);
     }
 
-    document.getElementById("scraping-button").addEventListener("click", function(){
-      openFolder("scraping", "scraping-button", "Scraping");
-    });
-    document.getElementById("cta-button").addEventListener("click", function(){
-      openCommandLine();
-    });
-    document.getElementById("mapp3-button").addEventListener("click", function(){
-      openFolder("mapp3", "mapp3-button", "Mapp 3");
-    });
+    document.getElementById("scraping-button").addEventListener("click", () => openFolder("scraping","scraping-button","Scraping"));
+    document.getElementById("cta-button").addEventListener("click", openCommandLine);
+    document.getElementById("mapp3-button").addEventListener("click", () => openFolder("mapp3","mapp3-button","Mapp 3"));
+    /* ⬇️ ENDA ÄNDRINGEN: logga och visa som Looker Studio */
     document.getElementById("mapp4-button").addEventListener("click", function(){
-      openFolder("mapp4", "mapp4-button", "Mapp 4");
+      openFolder("Looker Studio","mapp4-button","Looker Studio");
     });
   });
   </script>
 
-  <!-- 🔽 NYTT SCRIPT för Mapp 3 redirect -->
+  <!-- Byt Mapp 3 till länk + redirect -->
   <script>
-    (function() {
-      const url = "https://saronberhane1.github.io/examples/";
-      const btn = document.getElementById("mapp3-button");
-      if (!btn) return;
+  (function(){
+    const url="https://saronberhane1.github.io/examples/";
+    const btn=document.getElementById("mapp3-button");
+    if(!btn) return;
+    const h=btn.querySelector("h3"); if(h) h.textContent=url;
+    btn.addEventListener("click",function(e){
+      e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+      try{ dataLayer.push({event:"folder_redirect",folder:"mapp3",button_id:"mapp3-button",button_text:url,destination:url,section:"Mappar",timestamp:new Date().toISOString()}); }catch(_){}
+      location.href=url;
+    },{capture:true});
+  })();
+  </script>
 
-      // Byt visat namn till URL:en
-      const titleEl = btn.querySelector("h3");
-      if (titleEl) titleEl.textContent = url;
+  <!-- Scraping-tabell — popup med lista -->
+  <script>
+  (function(){
+    const btn = document.getElementById('scraping-button');
+    const modal = document.getElementById('scrapingTableModal');
+    const close = document.getElementById('close-scraping-table');
+    const tbody = document.querySelector('#scrapingTable tbody');
+    const search = document.getElementById('scrapingSearch');
+    const countEl = document.getElementById('scrapingCount');
 
-      // Lägg till en fångst-listener (capture) som stoppar den gamla och navigerar
-      btn.addEventListener("click", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    if(!btn || !modal || !tbody) return;
 
-        try {
-          window.dataLayer && dataLayer.push({
-            event: "folder_redirect",
-            folder: "mapp3",
-            button_id: "mapp3-button",
-            button_text: url,
-            destination: url,
-            section: "Mappar",
-            timestamp: new Date().toISOString()
-          });
-        } catch(err){}
+    const tsv = `title\turl
+Asus ROG Strix XG27AQDMG 27" Gaming QHD OLED 240Hz\thttps://www.prisjakt.nu/produkt.php?p=13798056
+Samsung Odyssey G5 C34G55TWW 34" Ultrawide Välvd Gaming WQHD\thttps://www.prisjakt.nu/produkt.php?p=5635128
+MSI Pro MP2412 24" Gaming Full HD VA\thttps://www.prisjakt.nu/produkt.php?p=12550830
+Philips E-Line 346E2LAE 34" Ultrawide WQHD VA\thttps://www.prisjakt.nu/produkt.php?p=7261149
+AOC AGON PRO AG276QZD2 QD-OLED\thttps://www.prisjakt.nu/produkt.php?p=13792594
+Samsung Odyssey G3 S24DG300 24" Gaming Full HD VA 180Hz\thttps://www.prisjakt.nu/produkt.php?p=13621080
+Samsung Odyssey G8 S32DG802 32" Gaming 4K UHD OLED 240Hz\thttps://www.prisjakt.nu/produkt.php?p=13620795
+LG UltraFine 27US500 27" 4K UHD IPS\thttps://www.prisjakt.nu/produkt.php?p=14124311
+Dell Alienware Alienware AW3423DWF 34" Ultrawide WQHD QD-OLED\thttps://www.prisjakt.nu/produkt.php?p=7421249
+LG UltraGear 27GS85Q 27" QHD Nano IPS\thttps://www.prisjakt.nu/produkt.php?p=13567480
+Philips 24E2N1110 24" Full HD\thttps://www.prisjakt.nu/produkt.php?p=14584821
+LG UltraGear 45GX950A 45'' OLED WUHD 165/330Hz Dual Mode\thttps://www.prisjakt.nu/produkt.php?p=14536008
+Asus 27" ROG Strix XG27ACDNG OLED QHD 360 Hz\thttps://www.prisjakt.nu/produkt.php?p=13949822
+Dell E2725H 27" Full HD\thttps://www.prisjakt.nu/produkt.php?p=14125029
+LG UltraGear 27GS95QE OLED 27" 4K QHD Gaming\thttps://www.prisjakt.nu/produkt.php?p=13060314
+AOC 25G3ZM 25" Gaming Full HD 240 Hz\thttps://www.prisjakt.nu/produkt.php?p=7010770
+Samsung Odyssey G5 S27CG554 27" Curved Gaming QHD VA 165Hz\thttps://www.prisjakt.nu/produkt.php?p=13139047
+Jonsbo DS8 8" LCD\thttps://www.prisjakt.nu/produkt.php?p=14847811
+Samsung Odyssey OLED G9 S49CG934 49" Ultrawide Välvd Gaming DQHD 240Hz\thttps://www.prisjakt.nu/produkt.php?p=11444870
+Samsung Odyssey 3D G90XF LS27FG900XUXEN 27" UHD Gaming 165Hz\thttps://www.prisjakt.nu/produkt.php?p=14550628
+AOC 24G4XE 24"\thttps://www.prisjakt.nu/produkt.php?p=13578831
+AOC Q27G3XMN 27" Gaming QHD VA 180Hz\thttps://www.prisjakt.nu/produkt.php?p=12794048
+LG 34" UltraWide 34WR50QK-B UWQHD (3440x1440) 100Hz Curved\thttps://www.prisjakt.nu/produkt.php?p=13931101
+Asus ROG Swift OLED PG27AQDM 27" Gaming QHD 240Hz\thttps://www.prisjakt.nu/produkt.php?p=7323141
+Dell Alienware AW2723DF 27" Gaming QHD IPS 280Hz\thttps://www.prisjakt.nu/produkt.php?p=7007131
+Dell UltraSharp U4025QW 40" Ultrawide Curved WUHD IPS 120Hz\thttps://www.prisjakt.nu/produkt.php?p=13440645
+Asus ROG Strix XG32UCWMG 31,5" 4K Ultra HD LCD\thttps://www.prisjakt.nu/produkt.php?p=15147198
+Asus TUF Gaming VG246H1A 24" Full HD IPS 100Hz\thttps://www.prisjakt.nu/produkt.php?p=10755124
+MSI G274F 27" Gaming Full HD IPS 180Hz\thttps://www.prisjakt.nu/produkt.php?p=12550829
+Dell Alienware AW2725DF 27'' QD-OLED\thttps://www.prisjakt.nu/produkt.php?p=13087295
+Asus ROG Swift PG32UCDM 31,5" Gaming 4K UHD 240Hz OLED\thttps://www.prisjakt.nu/produkt.php?p=13290192
+Dell Alienware AW3425DWM 34" WQHD\thttps://www.prisjakt.nu/produkt.php?p=14539477
+MSI Optix G27C4 27" Välvd Gaming Full HD\thttps://www.prisjakt.nu/produkt.php?p=5218898
+Samsung Odyssey G9 S49CG950E 49" Välvd Gaming 4K DQHD VA 240Hz\thttps://www.prisjakt.nu/produkt.php?p=7320722
+Samsung Odyssey G3 S27DG300 27" LS27DG300 Full HD\thttps://www.prisjakt.nu/produkt.php?p=13621090
+Asus ZenScreen MB165B 16"\thttps://www.prisjakt.nu/produkt.php?p=5962053
+MSI MAG401QR 40" Ultrawide Gaming WQHD IPS 155Hz\thttps://www.prisjakt.nu/produkt.php?p=13219691
+Dell Plus S2725QS 27" 4K UHD 120Hz\thttps://www.prisjakt.nu/produkt.php?p=14586552
+LG 32" UltraGear 32GS95UV OLED 4K 240/480Hz Dual Mode\thttps://www.prisjakt.nu/produkt.php?p=13853649
+Dell Alienware AW3225QF 4K QD-OLED\thttps://www.prisjakt.nu/produkt.php?p=13087459
+Samsung Odyssey OLED G8 G81SF LS27FG812SUXEN 27" UHD Gaming 240Hz\thttps://www.prisjakt.nu/produkt.php?p=14550589
+Dell UltraSharp U2725QE 27" IPS Black 4K 120Hz\thttps://www.prisjakt.nu/produkt.php?p=14488227
+Asus TUF Gaming VG27AQ3A 27" Gaming QHD IPS 180Hz\thttps://www.prisjakt.nu/produkt.php?p=12165172
+Samsung 27" Odyssey G7 S27DG702EU 4K Ultra HD\thttps://www.prisjakt.nu/produkt.php?p=14325973
+1Dell P2425H 24" Full HD\thttps://www.prisjakt.nu/produkt.php?p=13582121
+1Dell UltraSharp U2724DE\thttps://www.prisjakt.nu/produkt.php?p=12645618
+Asus ROG Strix XG259CS 24.5"\thttps://www.prisjakt.nu/produkt.php?p=13885616
+Samsung F24T452 24" Full HD IPS\thttps://www.prisjakt.nu/produkt.php?p=5623585
+MSI MAG 321UP 31,5"\thttps://www.prisjakt.nu/produkt.php?p=13718983
+Samsung Odyssey OLED G8 S34DG850 34" UWQHD\thttps://www.prisjakt.nu/produkt.php?p=13976258
+Dell Alienware AW2725QF 27" Gaming 4K UHD IPS 360Hz\thttps://www.prisjakt.nu/produkt.php?p=14385121
+Asus ROG Swift OLED PG32UCDP 32''\thttps://www.prisjakt.nu/produkt.php?p=13119976
+Lenovo L15 Mobile Monitor 15,6" Full HD IPS\thttps://www.prisjakt.nu/produkt.php?p=5942165
+LG UltraGear 45GS95QE OLED 45" UWQHD Gaming\thttps://www.prisjakt.nu/produkt.php?p=13060312
+MSI MAG 342CQR E2 34" UWQHD 180Hz\thttps://www.prisjakt.nu/produkt.php?p=14430557
+ASUS 27" ROG Strix XG27UCDMG OLED 4K 240 Hz\thttps://www.prisjakt.nu/produkt.php?p=14542568
+AOC Q27G4X 27" Gaming QHD IPS 180Hz\thttps://www.prisjakt.nu/produkt.php?p=13206373
+Apple Studio Display 27" Standard Glass Tilt and Height Adjustable Stand\thttps://www.prisjakt.nu/produkt.php?p=6006832
+Samsung Viewfinity S5 S34C500G 34" Ultrawide Gaming WQHD VA\thttps://www.prisjakt.nu/produkt.php?p=13053400
+Samsung Odyssey Neo G8 S32BG850 32" Välvd Gaming 4K UHD 240 Hz\thttps://www.prisjakt.nu/produkt.php?p=5950129
+Asus ROG Strix XG32UCWG 32" OLED 4K UHD\thttps://www.prisjakt.nu/produkt.php?p=15129118
+MSI MPG 491CQP QD-OLED 49"\thttps://www.prisjakt.nu/produkt.php?p=13104687
+Dell Alienware AW3425DW 34" WQHD\thttps://www.prisjakt.nu/produkt.php?p=14873702
+Benq ZOWIE by XL2566X+ 24,1″ Fast TN 400Hz DyAc 2\thttps://www.prisjakt.nu/produkt.php?p=13831281
+Samsung M5 S27CM500 27" Smart TV Full HD VA\thttps://www.prisjakt.nu/produkt.php?p=11673659
+Asus ProArt PA27JCV 27"\thttps://www.prisjakt.nu/produkt.php?p=14410551
+Asus ROG Swift OLED PG27UCDM 27"\thttps://www.prisjakt.nu/produkt.php?p=14396930
+AOC C27G4ZXU 27" VA QHD (1500R) 280Hz\thttps://www.prisjakt.nu/produkt.php?p=13861287
+Samsung Odyssey Neo G9 S57CG952 57" Ultrawide Välvd Gaming DUHD VA 240Hz\thttps://www.prisjakt.nu/produkt.php?p=7320721
+LG UltraGear 27GS75Q 27" Gaming QHD IPS 200Hz\thttps://www.prisjakt.nu/produkt.php?p=13567496
+MSI MPG 321URX QD-OLED 32" Gaming\thttps://www.prisjakt.nu/produkt.php?p=13326290
+Dell UltraSharp U3225QE 32" 4K UHD IPS 120Hz\thttps://www.prisjakt.nu/produkt.php?p=14488223
+AOC C32G2ZE 32" Välvd Gaming Full HD 240Hz\thttps://www.prisjakt.nu/produkt.php?p=5409718
+Samsung Essential S36GD 27'' Full HD\thttps://www.prisjakt.nu/produkt.php?p=13931039
+LG UltraGear 34GS95QE 34" Ultrawide Curved Gaming WQHD OLED 240Hz\thttps://www.prisjakt.nu/produkt.php?p=13400152
+MSI MAG 255XF 25" Full HD IPS 300Hz\thttps://www.prisjakt.nu/produkt.php?p=14567172
+Asus ProArt Display PA32QCV 31.5" 6K HDR IPS\thttps://www.prisjakt.nu/produkt.php?p=15099832
+Philips Evnia 34M2C6500 34" 3440x1440 QD-OLED\thttps://www.prisjakt.nu/produkt.php?p=13688332
+Samsung Odyssey G5 S32CG552EU 32" Curved Gaming QHD 165Hz\thttps://www.prisjakt.nu/produkt.php?p=13290167
+`.trim();
 
-        window.location.href = url;
-      }, { capture: true });
-    })();
+    const rows = tsv.split('\n').slice(1).map(line=>{
+      const [title,url] = line.split('\t');
+      return {title:title?.trim(), url:url?.trim()};
+    }).filter(r=>r.title && r.url);
+
+    const fr = document.createDocumentFragment();
+    rows.forEach(r=>{
+      const tr = document.createElement('tr');
+      const td1 = document.createElement('td'); td1.textContent = r.title;
+      const td2 = document.createElement('td');
+      const a = document.createElement('a'); a.href=r.url; a.target="_blank"; a.rel="noopener"; a.className='link'; a.textContent=r.url;
+      a.addEventListener('click',()=>{ try{ dataLayer.push({event:'scraping_table_link_click', title:r.title, url:r.url, timestamp:new Date().toISOString()}); }catch(_){}})
+      td2.appendChild(a);
+      tr.append(td1,td2);
+      fr.appendChild(tr);
+    });
+    tbody.appendChild(fr);
+    countEl.textContent = rows.length;
+
+    search.addEventListener('input', ()=>{
+      const q = search.value.toLowerCase();
+      let visible = 0;
+      [...tbody.rows].forEach(tr=>{
+        const match = tr.cells[0].textContent.toLowerCase().includes(q);
+        tr.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      countEl.textContent = visible + ' / ' + rows.length;
+    });
+
+    function openTable(){
+      const imgModal = document.getElementById('scrapingModal'); if (imgModal) imgModal.style.display='none';
+      const pdfModal = document.getElementById('scrapingPdfModal'); if (pdfModal) pdfModal.style.display='none';
+      modal.style.display='flex';
+      try{ dataLayer.push({event:'scraping_table_open', button_id:'scraping-button', section:'Mappar', rows:rows.length, timestamp:new Date().toISOString()}); }catch(_){}
+    }
+    function closeTable(reason){
+      modal.style.display='none';
+      try{ dataLayer.push({event:'scraping_table_close', reason:reason||'manual', timestamp:new Date().toISOString()}); }catch(_){}
+      window.removeEventListener('click', onBackdrop, true);
+      window.removeEventListener('keydown', onEsc, true);
+    }
+    function onBackdrop(ev){ if (ev.target===modal) closeTable('backdrop'); }
+    function onEsc(ev){ if (ev.key==='Escape' && modal.style.display==='flex') closeTable('escape'); }
+
+    document.addEventListener('pointerdown', function(ev){
+      if (!btn.contains(ev.target)) return;
+      ev.preventDefault(); ev.stopPropagation(); if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      openTable();
+      window.addEventListener('click', onBackdrop, true);
+      window.addEventListener('keydown', onEsc, true);
+    }, {capture:true});
+
+    document.addEventListener('click', function(ev){
+      if (!btn.contains(ev.target)) return;
+      ev.preventDefault(); ev.stopPropagation(); if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      openTable();
+      window.addEventListener('click', onBackdrop, true);
+      window.addEventListener('keydown', onEsc, true);
+    }, {capture:true});
+
+    close.addEventListener('click', ()=> closeTable('close_button'));
+  })();
   </script>
 </body>
 </html>
