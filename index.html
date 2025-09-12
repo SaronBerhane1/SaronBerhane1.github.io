@@ -189,5 +189,39 @@
     });
   });
   </script>
+
+  <!-- 🔽 NYTT SCRIPT för Mapp 3 redirect -->
+  <script>
+    (function() {
+      const url = "https://saronberhane1.github.io/examples/";
+      const btn = document.getElementById("mapp3-button");
+      if (!btn) return;
+
+      // Byt visat namn till URL:en
+      const titleEl = btn.querySelector("h3");
+      if (titleEl) titleEl.textContent = url;
+
+      // Lägg till en fångst-listener (capture) som stoppar den gamla och navigerar
+      btn.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+        try {
+          window.dataLayer && dataLayer.push({
+            event: "folder_redirect",
+            folder: "mapp3",
+            button_id: "mapp3-button",
+            button_text: url,
+            destination: url,
+            section: "Mappar",
+            timestamp: new Date().toISOString()
+          });
+        } catch(err){}
+
+        window.location.href = url;
+      }, { capture: true });
+    })();
+  </script>
 </body>
 </html>
