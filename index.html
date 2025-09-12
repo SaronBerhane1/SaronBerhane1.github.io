@@ -27,16 +27,24 @@
       --radius:14px;
     }
     *{box-sizing:border-box}
+
+    /* 🔽 TILLAGT: sticky footer */
+    html,body{height:100%}
+    body{min-height:100vh; display:flex; flex-direction:column;}
+
     body{margin:0; font-family:'Montserrat', sans-serif; background:var(--bg); color:var(--text);}
     header{background:var(--black); color:#fff; padding:48px 24px; text-align:center}
     header h1{margin:0; font-size:clamp(28px,5vw,56px); font-weight:800;}
     header .subtitle{margin-top:8px; font-size:clamp(14px,2.5vw,18px); font-weight:600;}
-    main{max-width:1000px; margin:24px auto; padding:0 16px 48px}
+
+    main{max-width:1000px; margin:24px auto; padding:0 16px 48px; flex:1 0 auto;} /* 🔼 main flex:1 */
     .section-title{font-size:20px; margin:8px 0 16px; font-weight:600;}
+
     .grid{display:grid; gap:14px; grid-template-columns: repeat(4,1fr);}
     @media (max-width:1024px){.grid{grid-template-columns: repeat(3,1fr);}}
     @media (max-width:768px){.grid{grid-template-columns: repeat(2,1fr);}}
     @media (max-width:520px){.grid{grid-template-columns:1fr;}}
+
     .card{
       background:#fff7f3; border:2px solid var(--orange);
       border-radius:var(--radius); padding:14px;
@@ -52,8 +60,9 @@
     .modal-content { background:#fff; padding:24px; border-radius:var(--radius); max-width:600px; width:90%; box-shadow:var(--shadow); }
     .modal-content h2 {margin-top:0; color:var(--orange);}
     .close-btn {float:right; font-size:20px; cursor:pointer; color:#666;}
-    footer{background:var(--black); color:#fff; padding:20px; text-align:center}
 
+    footer{background:var(--black); color:#fff; padding:20px; text-align:center; margin-top:auto;} /* 🔼 footer trycks ner */
+    
     /* Tabell-styles för Scraping-listan */
     .table-wrap{max-height:70vh; overflow:auto; border:1px solid #eee; border-radius:12px;}
     table.scrape{width:100%; border-collapse:collapse; font-size:14px;}
@@ -166,7 +175,6 @@
     document.getElementById("scraping-button").addEventListener("click", () => openFolder("scraping","scraping-button","Scraping"));
     document.getElementById("cta-button").addEventListener("click", openCommandLine);
     document.getElementById("mapp3-button").addEventListener("click", () => openFolder("mapp3","mapp3-button","Mapp 3"));
-    /* ⬇️ ENDA ÄNDRINGEN: logga och visa som Looker Studio */
     document.getElementById("mapp4-button").addEventListener("click", function(){
       openFolder("Looker Studio","mapp4-button","Looker Studio");
     });
@@ -346,5 +354,7 @@ Samsung Odyssey G5 S32CG552EU 32" Curved Gaming QHD 165Hz\thttps://www.prisjakt.
     close.addEventListener('click', ()=> closeTable('close_button'));
   })();
   </script>
+
+  <!-- (Eventuella cookie/consent-banners du hade tidigare kan ligga kvar) -->
 </body>
 </html>
